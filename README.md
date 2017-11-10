@@ -9,15 +9,28 @@ In `app/valley.asc` there is a test elevation model of a small valley area. It
 is parsed and printed by the `arcgrid-exe` if you do `stack exec arcgrid-exe`.
 
 ## Usage
-The library exports the `ArcGrid` datatype and `arcGridFromFile`:
+The library exports the `ArcGrid` datatype and its accessors:
+
+``` haskell
+data ArcGrid = ArcGrid
+               { ncols :: Int
+               , nrows :: Int
+               , xllcorner :: Maybe Float
+               , yllcorner :: Maybe Float
+               , xllcenter :: Maybe Float
+               , yllcenter :: Maybe Float
+               , cellsize :: Float
+               , nodata_value :: Maybe Int
+               , vat :: Vector (Vector Int)
+               }
+```
+
+The main interface for reading of grid files is `arcGridFromFile`, but the
+bytestring parser (to be used with Parsec) is also exported.
 
 ``` haskell
 arcGridFromFile :: String -> IO ArcGrid
-```
 
-There is also the bytestring parser to be used with parsec:
-
-``` haskell
 asciiGridParser :: Parser ArcGrid
 ```
 
