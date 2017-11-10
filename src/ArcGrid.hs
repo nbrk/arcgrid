@@ -1,6 +1,16 @@
 -- | ESRI/ArcInfo ASCII Grid file format
 module ArcGrid
   ( ArcGrid
+  , ncols
+  , nrows
+  , xllcorner
+  , yllcorner
+  , xllcenter
+  , yllcenter
+  , cellsize
+  , nodata_value
+  , vat
+
   , arcGridFromFile
   , asciiGridParser
   )
