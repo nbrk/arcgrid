@@ -2,7 +2,7 @@
 module ArcGrid
   ( ArcGrid
   , arcGridFromFile
-  , parse
+  , asciiGridParser
   )
 where
 
@@ -34,7 +34,7 @@ data ArcGrid = ArcGrid
 
 arcGridFromFile :: String -> IO ArcGrid
 arcGridFromFile fname = do
-  e <- parseFromFile parser fname
+  e <- parseFromFile asciiGridParser fname
   case e of
     Left err -> error $ show err
     Right ag -> return ag
@@ -96,8 +96,8 @@ vatLineParser ncols = do
   return as
 
 
-parser :: Parser ArcGrid
-parser = do
+asciiGridParser :: Parser ArcGrid
+asciiGridParser = do
   _ncols <- pvLineParser "ncols" decimal
   _nrows <- pvLineParser "nrows" decimal
 
