@@ -4,13 +4,12 @@ synopsis:            Parse ESRI/ArcInfo (ArcGrid) raster GIS files
 description:         A parser for ESRI/ArcInfo (ArcGrid) files. These are raster
                      GIS files widely used by many geographics-related software
                      to represent elevations or terrain features.
-homepage:            https://github.com/githubuser/arcgrid#readme
+homepage:            https://github.com/nbrk/arcgrid
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2017 Author name here
-category:            Web
+author:              Nikolay Burkov
+maintainer:          nbrk@linklevel.net
+category:            Geo
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
@@ -44,4 +43,4 @@ test-suite arcgrid-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/arcgrid
+  location: https://github.com/nbrk/arcgrid
