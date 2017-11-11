@@ -21,7 +21,7 @@ data ArcGrid = ArcGrid
                , yllcenter :: Maybe Float
                , cellsize :: Float
                , nodata_value :: Maybe Int
-               , vat :: Vector (Vector Int)
+               , vat :: [Int]
                }
 ```
 
@@ -37,3 +37,4 @@ asciiGridParser :: Parser ArcGrid
 ## TODO:
 - unparsing
 - optimizations
+- support of proprietary binary formats?
