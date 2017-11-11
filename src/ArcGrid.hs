@@ -37,7 +37,7 @@ data ArcGrid = ArcGrid
                , yllcenter :: Maybe Float
                , cellsize :: Float
                , nodata_value :: Maybe Int
-               , vat :: V.Vector (V.Vector Int) -- value attribute table
+               , vat :: V.Vector Int -- value attribute table
                } deriving (Show)
 
 
@@ -94,18 +94,28 @@ cllParser c =
           return (Nothing, Just val)
 
 
--- | Parse VAT row
-vatLineParser :: Int -> Parser [Int]
-vatLineParser ncols = do
-  skipMany space
-  as <- count ncols $ do
+-- -- | Parse VAT row
+-- vatLineParser :: Int -> Parser [Int]
+-- vatLineParser ncols = do
+--   skipMany space
+--   as <- count ncols $ do
+--     a <- int
+--     space <|> newline
+--     return a
+
+--   return as
+
+vatParser :: Int -> Parser [Int]
+vatParser n = do
+  as <- count n $ do
+    spaces
     a <- int
     space <|> newline
     return a
-
   return as
 
 
+-- | The parser
 asciiGridParser :: Parser ArcGrid
 asciiGridParser = do
   _ncols <- pvLineParser "ncols" decimal
@@ -118,12 +128,13 @@ asciiGridParser = do
   _nodata_value <- optionMaybe $ pvLineParser "NODATA_value" int
 
   -- XXX
-  rows <- count _nrows $ do
-    row <- vatLineParser _ncols
-    let rowv = V.fromList row
-    return rowv
-  let rowvv = V.fromList rows
+  -- rows <- count _nrows $ do
+  --   row <- vatLineParser _ncols
+  --   let rowv = V.fromList row
+  --   return rowv
+  -- let rowvv = V.fromList rows
 
+  _vat <- vatParser (_ncols * _nrows)
 
   return $ ArcGrid
     { ncols = _ncols
@@ -134,6 +145,6 @@ asciiGridParser = do
     , yllcenter = _yllcenter
     , cellsize = _cellsize
     , nodata_value = _nodata_value
-    , vat = rowvv
+    , vat = V.fromList _vat
     }
 
