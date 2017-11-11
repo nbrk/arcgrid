@@ -18,8 +18,6 @@ library
   hs-source-dirs:      src
   exposed-modules:     ArcGrid
   build-depends:       base >= 4.7 && < 5
-                     , vector
-                     , bytestring
                      , parsec
                      , parsec-numeric
   default-language:    Haskell2010

@@ -16,7 +16,6 @@ module ArcGrid
   )
 where
 
-import qualified Data.Vector as V
 import Data.Char
 import Text.Parsec
 import Text.Parsec.ByteString
@@ -37,7 +36,7 @@ data ArcGrid = ArcGrid
                , yllcenter :: Maybe Float
                , cellsize :: Float
                , nodata_value :: Maybe Int
-               , vat :: V.Vector Int -- value attribute table
+               , vat :: [Int] -- value attribute table
                } deriving (Show)
 
 
@@ -127,13 +126,6 @@ asciiGridParser = do
   _cellsize <- pvLineParser "cellsize" floating
   _nodata_value <- optionMaybe $ pvLineParser "NODATA_value" int
 
-  -- XXX
-  -- rows <- count _nrows $ do
-  --   row <- vatLineParser _ncols
-  --   let rowv = V.fromList row
-  --   return rowv
-  -- let rowvv = V.fromList rows
-
   _vat <- vatParser (_ncols * _nrows)
 
   return $ ArcGrid
@@ -145,6 +137,6 @@ asciiGridParser = do
     , yllcenter = _yllcenter
     , cellsize = _cellsize
     , nodata_value = _nodata_value
-    , vat = V.fromList _vat
+    , vat = _vat
     }
 
